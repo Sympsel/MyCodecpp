@@ -101,13 +101,35 @@ public:
 
     Date operator+(int days) const {
         Date newDate(*this);
-        newDate += (days);
+        newDate += days;
         return newDate;
     }
 
     Date operator-(int days) const {
         Date newDate(*this);
-        newDate += (days);
+        newDate += -days;
+        return newDate;
+    }
+
+    Date& operator++() {
+        *this += 1;
+        return *this;
+    }
+
+    Date operator++(int) {
+        Date newDate(*this);
+        *this += 1;
+        return newDate;
+    }
+
+    Date operator--() {
+        *this += -1;
+        return *this;
+    }
+
+    Date operator--(int) {
+        Date newDate(*this);
+        *this += -1;
         return newDate;
     }
 
@@ -142,6 +164,16 @@ public:
 
     bool operator<=(const Date &date) const {
         return *this < date || *this == date;
+    }
+
+    static int dateDiffer(const Date &d1, const Date &d2) {
+        Date d = d1;
+        int days = 0;
+        while (d < d2) {
+            d++;
+            days++;
+        }
+        return days;
     }
 
 private:
